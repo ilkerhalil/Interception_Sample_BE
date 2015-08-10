@@ -16,6 +16,10 @@ namespace Interception_Sample_BE
         {
         }
 
+        public override void GetPropertiesForNewContext(IConstructionCallMessage ctorMsg)
+        {
+            ctorMsg.ContextProperties.Add(new InterceptProperty());
+        }
         public override bool IsContextOK(Context ctx, IConstructionCallMessage ctorMsg)
         {
             var p = (InterceptProperty)ctx.GetProperty("Intercept");

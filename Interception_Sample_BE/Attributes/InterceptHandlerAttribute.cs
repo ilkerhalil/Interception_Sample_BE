@@ -3,13 +3,18 @@ using System;
 namespace Interception_Sample_BE
 {
     [AttributeUsage(AttributeTargets.Method)]
-    public class InterceptHandlerAttribute : Attribute
+    public abstract class InterceptHandlerAttribute : Attribute
     {
-        public InterceptType InterceptType { get; private set; }
-
-        public InterceptHandlerAttribute(InterceptType interceptType)
+        protected InterceptHandlerAttribute(InterceptType interceptType)
         {
             InterceptType = interceptType;
         }
+
+        public InterceptType InterceptType { get; private set; }
+
+        public int Order { get; set; }
+
+        public abstract Type StartegyType { get; }
+
     }
 }

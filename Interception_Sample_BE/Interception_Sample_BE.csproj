@@ -74,10 +74,10 @@
     <Compile Include="Attributes\InterceptHandlerAttribute.cs" />
     <Compile Include="Attributes\InterceptProperty.cs" />
     <Compile Include="Attributes\InterceptType.cs" />
+    <Compile Include="InterceptionStrartyegy\BaseAfterStartegy.cs" />
+    <Compile Include="InterceptionStrartyegy\BaseBeforeStartegy.cs" />
     <Compile Include="Interceptor\InterceptSink.cs" />
-    <Compile Include="InterceptionStrartyegy\BaseStartegy.cs" />
     <Compile Include="Credit.cs" />
-    <Compile Include="Interceptor\CreditInterceptor.cs" />
     <Compile Include="Service\EmailService.cs" />
     <Compile Include="Attributes\ErrorHandlerAttribute.cs" />
     <Compile Include="InterceptionStrartyegy\ErrorHandlerStartegy.cs" />

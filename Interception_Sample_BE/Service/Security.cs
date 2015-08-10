@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 namespace Interception_Sample_BE
 {
@@ -6,7 +7,8 @@ namespace Interception_Sample_BE
     {
         public bool CheckAuthorization(string userName, string role)
         {
-            return true;
+            Console.WriteLine("Security Kontrol ediliyor..!");
+            return false;
         }
 
     }

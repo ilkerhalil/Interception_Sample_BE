@@ -7,11 +7,14 @@ namespace Interception_Sample_BE
     public class ErrorHandlerAttribute : InterceptHandlerAttribute
     {
         public ErrorHandlerAttribute(string notifyEmail)
-            : base(InterceptType.After)
+            :base(InterceptType.After)
         {
             NotifyEmail = notifyEmail;
         }
+
         public string NotifyEmail { get; private set; }
-        public int Order { get; set; }
+
+        public override Type StartegyType => typeof (ErrorHandlerStartegy);
+
     }
 }

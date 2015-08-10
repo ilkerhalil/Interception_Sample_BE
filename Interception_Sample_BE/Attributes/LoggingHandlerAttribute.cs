@@ -3,9 +3,13 @@ using System.Security.AccessControl;
 
 namespace Interception_Sample_BE
 {
-    public class LoggingHandlerAttribute : Attribute
+    public class LoggingHandlerAttribute : InterceptHandlerAttribute
     {
-        public int Order { get; set; }
+        public LoggingHandlerAttribute() 
+            : base(InterceptType.Before)
+        {
+        }
 
+        public override Type StartegyType => typeof (LogStartegy);
     }
 }

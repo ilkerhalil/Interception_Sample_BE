@@ -6,18 +6,9 @@ using System.Threading;
 namespace Interception_Sample_BE
 {
     [Intercept]
-    public class Credit
+    public class Credit: ContextBoundObject
     {
-        private readonly Logger _logger;
-        private readonly Notification _notification;
-        private readonly Security _security;
-
-        public Credit(Logger logger, Notification notification, Security security)
-        {
-            _logger = logger;
-            _notification = notification;
-            _security = security;
-        }
+        
 
         [LoggingHandler]
         [ErrorHandler("developer@bank.com")]

@@ -6,6 +6,9 @@ namespace Interception_Sample_BE
 {
     public class InterceptProperty : IContextProperty, IContributeObjectSink
     {
+
+
+
         public bool IsNewContextOK(Context newCtx)
         {
             var p = newCtx.GetProperty("Intercept") as InterceptProperty;
@@ -16,10 +19,8 @@ namespace Interception_Sample_BE
         {
         }
 
-        public string Name
-        {
-            get { return "Intercept"; }
-        }
+        public string Name => "Intercept";
+
         public IMessageSink GetObjectSink(MarshalByRefObject obj, IMessageSink nextSink)
         {
             return new InterceptSink(nextSink);
