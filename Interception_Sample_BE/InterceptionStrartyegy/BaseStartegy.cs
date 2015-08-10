@@ -5,16 +5,9 @@ namespace Interception_Sample_BE
 {
     public abstract class BaseStartegy : IStartegy
     {
-        public virtual MarshalByRefObject MarshalByRefObject { get; private set; }
-        public virtual IMethodCallMessage Message { get; private set; }
+        protected BaseStartegy() { }
 
-        protected BaseStartegy(MarshalByRefObject marshalByRefObject, IMethodCallMessage message)
-        {
-            MarshalByRefObject = marshalByRefObject;
-            Message = message;
-        }
-
-        public abstract IMethodReturnMessage Execute();
+        public abstract void Execute(IMethodCallMessage callMsg, ref IMethodReturnMessage retMsg);
 
     }
 }

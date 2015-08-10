@@ -5,6 +5,6 @@ namespace Interception_Sample_BE
 {
     public interface IStartegy
     {
-        IMethodReturnMessage Execute();
+        void Execute(IMethodCallMessage callMsg, ref IMethodReturnMessage retMsg);
     }
 }

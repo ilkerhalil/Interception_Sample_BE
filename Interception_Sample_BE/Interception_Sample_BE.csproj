@@ -70,6 +70,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\InterceptAttribute.cs" />
+    <Compile Include="Attributes\InterceptHandlerAttribute.cs" />
+    <Compile Include="Attributes\InterceptProperty.cs" />
+    <Compile Include="Attributes\InterceptType.cs" />
+    <Compile Include="Interceptor\InterceptSink.cs" />
     <Compile Include="InterceptionStrartyegy\BaseStartegy.cs" />
     <Compile Include="Credit.cs" />
     <Compile Include="Interceptor\CreditInterceptor.cs" />

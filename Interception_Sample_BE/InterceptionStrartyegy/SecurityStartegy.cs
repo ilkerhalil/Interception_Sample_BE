@@ -1,28 +1,28 @@
 using System;
+using System.Reflection;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Messaging;
 using System.Security;
+using System.Threading;
 
 namespace Interception_Sample_BE
 {
-    public class SecurityStartegy: BaseStartegy
+    public class SecurityStartegy : BaseStartegy
     {
-        private readonly string _userName;
-        private readonly string _role;
-        private readonly Security security;
-        public SecurityStartegy(MarshalByRefObject marshalByRefObject, IMethodCallMessage message,string userName, string role)
-            :base(marshalByRefObject,message)
+
+
+        public SecurityStartegy(string role)
         {
-            _userName = userName;
-            _role = role;
-            this.security = new Security();
+            _security = new Security();
         }
 
-        public override IMethodReturnMessage Execute()
+        public override void Execute(IMethodCallMessage callMsg, ref IMethodReturnMessage retMsg)
         {
-            if(!security.CheckAuthorization(this._userName, this._role))throw new SecurityException();
-            return RemotingServices.ExecuteMessage(MarshalByRefObject, Message);
+            var securityHandlerAttribute = callMsg.MethodBase.GetCustomAttribute(typeof(SecurityHandlerAttribute)) as SecurityHandlerAttribute;
+            if (securityHandlerAttribute == null) throw new ArgumentNullException("securityHandlerAttribute");
+            if (!_security.CheckAuthorization(Thread.CurrentPrincipal.Identity.Name, securityHandlerAttribute.Role)) throw new SecurityException();
         }
 
+        Security _security;
     }
 }

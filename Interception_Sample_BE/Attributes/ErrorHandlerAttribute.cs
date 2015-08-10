@@ -1,18 +1,17 @@
 using System;
+using System.Runtime.Remoting.Contexts;
 
 namespace Interception_Sample_BE
 {
-    public class ErrorHandlerAttribute: Attribute
+    [AttributeUsage(AttributeTargets.Method)]
+    public class ErrorHandlerAttribute : InterceptHandlerAttribute
     {
-        public string NotifyEmail { get; }
-
-        public int Order { get; set; }
-
-
         public ErrorHandlerAttribute(string notifyEmail)
+            : base(InterceptType.After)
         {
             NotifyEmail = notifyEmail;
         }
-
+        public string NotifyEmail { get; private set; }
+        public int Order { get; set; }
     }
 }

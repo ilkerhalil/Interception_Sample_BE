@@ -5,19 +5,17 @@ using System.Runtime.Remoting.Messaging;
 
 namespace Interception_Sample_BE
 {
-    public class LogStartegy: BaseStartegy
+    public class LogStartegy : BaseStartegy
     {
         private readonly Logger _logger;
-        public LogStartegy(MarshalByRefObject marshalByRefObject, IMethodCallMessage message)
-            :base(marshalByRefObject,message)
+        public LogStartegy()
         {
             _logger = new Logger();
         }
 
-        public override IMethodReturnMessage Execute()
+        public override void Execute(IMethodCallMessage callMsg, ref IMethodReturnMessage retMsg)
         {
-            _logger.Logla(Message.InArgs.Select(d => d.ToString()).ToArray());
-            return RemotingServices.ExecuteMessage(MarshalByRefObject, Message);
+            _logger.Logla(callMsg.InArgs.Select(d => d.ToString()).ToArray());
         }
     }
 }

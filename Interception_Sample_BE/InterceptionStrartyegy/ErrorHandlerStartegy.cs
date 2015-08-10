@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Messaging;
 
@@ -6,22 +7,20 @@ namespace Interception_Sample_BE
 {
     public class ErrorHandlerStartegy : BaseStartegy
     {
-        private readonly string _notifyEmail;
         private readonly EmailService emailService;
 
-        public ErrorHandlerStartegy(MarshalByRefObject marshalByRefObject, IMethodCallMessage message,string notifyEmail)
-            :base(marshalByRefObject,message)
+        public ErrorHandlerStartegy()
         {
-            _notifyEmail = notifyEmail;
             emailService = new EmailService();
         }
 
-
-        public override IMethodReturnMessage Execute()
+        public override void Execute(IMethodCallMessage callMsg, ref IMethodReturnMessage retMsg)
         {
-            var methodReturnMessage = RemotingServices.ExecuteMessage(MarshalByRefObject, Message);
-            if(methodReturnMessage.Exception!=null) emailService.SendEmail(new[] { _notifyEmail }, null, $"Error {methodReturnMessage.Exception.TargetSite.Name}", methodReturnMessage.Exception.ToString());
-            return methodReturnMessage;
+            var errorHandlerAttribute = callMsg.MethodBase.GetCustomAttribute(typeof(ErrorHandlerAttribute)) as ErrorHandlerAttribute;
+            if (errorHandlerAttribute == null) throw new ArgumentNullException("errorHandlerAttribute");
+            if (retMsg.Exception != null)
+                emailService.SendEmail(new[] { errorHandlerAttribute.NotifyEmail }, null,
+                    string.Format("Error {0}", retMsg.Exception.TargetSite.Name), retMsg.Exception.ToString());
         }
     }
 }
