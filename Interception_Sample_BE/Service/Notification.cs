@@ -8,6 +8,7 @@
         public Notification(SmsService smsService)
         {
             _smsService = smsService;
+            _emailService = new EmailService();
         }
 
         public void SendSms(string phoneNo, string content)
